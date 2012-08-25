@@ -1,23 +1,30 @@
 #!node
 
-var mecha = module.exports = exports = {
-  log: function(){ console.log.apply(console, arguments) },
-  example: (typeof describe === 'undefined' && process.argv[1]),
-  run: function(){}
-}
+var mecha = function(){ run.apply(this, arguments) }, run = function(){}
+
+mecha.log = function(){ console.log.apply(console, arguments) }
+mecha.example = (typeof describe === 'undefined' && process.argv[1])
 
 if( mecha.example ) {
-  var mocha = new (require('mocha'))
+  var Mocha = require('mocha')
+    , mocha = new Mocha
   if( __filename === mecha.example ) {
     mocha.files = process.argv.slice(2)
     mocha.run(process.exit)
   } else {
     mocha.suite.emit('pre-require', global, mecha.example, mocha)
-    mecha.run = function(){ mocha.run.apply(mocha, arguments) }
+    run = function(options){
+      var suite = mocha.suite
+      Mocha.apply(mocha, [options])
+      mocha.suite = suite
+      if(options === null) {
+        mocha._reporter = function(){}
+      }
+      mocha.run()
+    }
   }
 } else {
   mecha.log = function(){}
 }
-
 
 module.exports = mecha
