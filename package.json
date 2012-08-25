@@ -1,0 +1,23 @@
+{
+  "author": "Victor Hugo Borja <vic.borja@gmail.com> (http://twitter.com/vborja)",
+  "name": "mecha",
+  "description": "Ensure your node examples/*.js work by using them as mocha tests.",
+  "version": "0.0.0",
+  "homepage": "http://vic.github.com/mecha",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vic/mecha.git"
+  },
+  "main": "mecha.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "mocha": "*"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
