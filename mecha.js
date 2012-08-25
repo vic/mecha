@@ -13,11 +13,11 @@ if( mecha.example ) {
     mocha.run(process.exit)
   } else {
     mocha.suite.emit('pre-require', global, mecha.example, mocha)
-    run = function(options){
+    run = function(){
       var suite = mocha.suite
-      Mocha.apply(mocha, [options])
+      Mocha.apply(mocha, arguments)
       mocha.suite = suite
-      if(options === null) {
+      if(arguments.length == 0) {
         mocha._reporter = function(){}
       }
       mocha.run()
